@@ -8,7 +8,7 @@ import { LOGIN } from "../graphql/login";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [login, { called, loading, client }] = useMutation(LOGIN);
+  const [login] = useMutation(LOGIN);
   return (
     <div className="container">
       <div className="row">
@@ -40,7 +40,9 @@ export const Login = () => {
               />
             </FormGroup>
             <FormGroup>
-              <Button type="submit">Submit</Button>
+              <Button size="lg" outline type="submit">
+                Submit
+              </Button>
             </FormGroup>
           </Form>
         </div>

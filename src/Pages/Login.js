@@ -41,7 +41,7 @@ export const Login = () => {
             </FormGroup>
             <FormGroup>
               <Button size="lg" outline type="submit">
-                Submit
+                Login
               </Button>
             </FormGroup>
           </Form>

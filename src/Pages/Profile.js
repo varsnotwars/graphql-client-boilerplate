@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 
 import {
   Button,
@@ -12,15 +12,13 @@ import {
   CustomInput
 } from "reactstrap";
 
-import { PROFILE } from "../graphql/profile";
 import { LOGOUT } from "../graphql/logout";
 
-export const Profile = () => {
+export const Profile = ({ profile }) => {
   const [fromAll, setFromAll] = useState(false);
-  const { loading, data } = useQuery(PROFILE);
+
   const [logout] = useMutation(LOGOUT);
 
-  if (loading) return "loading...";
   return (
     <div className="container">
       <div className="row">
@@ -28,13 +26,14 @@ export const Profile = () => {
           <h1 className="display-4">Profile</h1>
           <Card>
             <CardImg
+              style={{ height: "260", width: "260" }}
               top
               width="100%"
               src="https://avatars1.githubusercontent.com/u/20197359?s=460&v=4"
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle>{data.profile.email}</CardTitle>
+              <CardTitle>{profile.email}</CardTitle>
               <Form>
                 <FormGroup>
                   <div>

@@ -17,7 +17,7 @@ import { LOGOUT } from "../graphql/logout";
 export const Profile = ({ profile, history }) => {
   const [fromAll, setFromAll] = useState(false);
 
-  const [logout] = useMutation(LOGOUT);
+  const [logout, { client }] = useMutation(LOGOUT);
 
   return (
     <div className="container">
@@ -53,9 +53,8 @@ export const Profile = ({ profile, history }) => {
                     onClick={async () => {
                       const res = await logout({ variables: { fromAll } });
                       if (res.data && res.data.logout) {
-                        // unsure how else to do this, we need to clear the state of profile
-                        // and a page reload like this seems to be the only thing that works
-                        window.location.href = "/";
+                        history.push("/");
+                        await client.resetStore();
                       }
                     }}
                   >

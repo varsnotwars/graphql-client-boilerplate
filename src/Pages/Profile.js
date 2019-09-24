@@ -55,7 +55,7 @@ export const Profile = ({ profile, history }) => {
                       if (res.data && res.data.logout) {
                         // unsure how else to do this, we need to clear the state of profile
                         // and a page reload like this seems to be the only thing that works
-                        window.location = "/";
+                        window.location.href = "/";
                       }
                     }}
                   >

@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
-export const ME = gql`
-  query me {
-    me {
+export const PROFILE = gql`
+  query profile {
+    profile {
       id
       email
     }

@@ -9,16 +9,15 @@ import {
   CardTitle,
   Form,
   FormGroup,
-  Label,
   CustomInput
 } from "reactstrap";
 
-import { ME } from "../graphql/me";
+import { PROFILE } from "../graphql/profile";
 import { LOGOUT } from "../graphql/logout";
 
 export const Profile = () => {
   const [fromAll, setFromAll] = useState(false);
-  const { loading, data } = useQuery(ME);
+  const { loading, data } = useQuery(PROFILE);
   const [logout] = useMutation(LOGOUT);
 
   if (loading) return "loading...";
@@ -35,7 +34,7 @@ export const Profile = () => {
               alt="Card image cap"
             />
             <CardBody>
-              <CardTitle></CardTitle>
+              <CardTitle>{data.profile.email}</CardTitle>
               <Form>
                 <FormGroup>
                   <div>

@@ -16,8 +16,7 @@ export const Register = () => {
           <Form
             onSubmit={async e => {
               e.preventDefault();
-              const res = await register({ variables: { email, password } });
-              console.log(res);
+              await register({ variables: { email, password } });
             }}
           >
             <FormGroup>

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import { Redirect } from "react-router-dom";
 
 import {
   Button,
@@ -15,15 +14,10 @@ import {
 
 import { LOGOUT } from "../graphql/logout";
 
-export const Profile = ({ profile }) => {
+export const Profile = ({ profile, history }) => {
   const [fromAll, setFromAll] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   const [logout] = useMutation(LOGOUT);
-
-  if (redirect) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className="container">
@@ -59,8 +53,9 @@ export const Profile = ({ profile }) => {
                     onClick={async () => {
                       const res = await logout({ variables: { fromAll } });
                       if (res.data && res.data.logout) {
-                        // TODO: profile will be cached, need to reload this or something
-                        setRedirect(true);
+                        // unsure how else to do this, we need to clear the state of profile
+                        // and a page reload like this seems to be the only thing that works
+                        window.location = "/";
                       }
                     }}
                   >

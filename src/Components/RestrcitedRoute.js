@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 import { useQuery } from "@apollo/react-hooks";
 import { PROFILE } from "../graphql/profile";
@@ -11,13 +11,22 @@ export const RestrictedRoute = ({ component: Component, ...rest }) => {
   if (loading) return "loading...";
 
   if (error) {
-    const notAuthenticated = error.graphQLErrors.some(
+    const AuthenticationRequiredError = error.graphQLErrors.find(
       ge => ge.extensions.exception.name === "AuthenticationRequiredError"
     );
 
-    if (notAuthenticated) {
-      // TODO: redirect to login
-      return <div>Not authenticated</div>;
+    if (AuthenticationRequiredError) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/login",
+            state: {
+              error: AuthenticationRequiredError.message,
+              from: rest.location
+            }
+          }}
+        />
+      );
     } else {
       throw new Error(error);
     }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
+import { Redirect } from "react-router-dom";
 
 import {
   Button,
@@ -16,8 +17,13 @@ import { LOGOUT } from "../graphql/logout";
 
 export const Profile = ({ profile }) => {
   const [fromAll, setFromAll] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const [logout] = useMutation(LOGOUT);
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div className="container">
@@ -50,9 +56,13 @@ export const Profile = ({ profile }) => {
                   <Button
                     size="lg"
                     outline
-                    onClick={async () =>
-                      await logout({ variables: { fromAll } })
-                    }
+                    onClick={async () => {
+                      const res = await logout({ variables: { fromAll } });
+                      if (res.data && res.data.logout) {
+                        // TODO: profile will be cached, need to reload this or something
+                        setRedirect(true);
+                      }
+                    }}
                   >
                     Logout
                   </Button>

@@ -1,24 +1,40 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
+import { Redirect } from "react-router-dom";
 
-import { Button, Form, FormGroup, Input } from "reactstrap";
+import { Button, Form, FormGroup, Input, Alert } from "reactstrap";
 
 import { LOGIN } from "../graphql/login";
 
-export const Login = () => {
+export const Login = ({ location }) => {
   const [email, setEmail] = useState("");
+  const [redirect, setRedirect] = useState(false);
   const [password, setPassword] = useState("");
+
   const [login] = useMutation(LOGIN);
+
+  const { from, error } = location.state || {
+    from: { pathname: "/profile" },
+    error: null
+  };
+
+  if (redirect) {
+    return <Redirect to={from} />;
+  }
   return (
     <div className="container">
       <div className="row">
         <div className="col-sm-6 offset-sm-3 text-center">
+          {error && <Alert color="danger">{location.state.error}</Alert>}
           <h1 className="display-4">Login</h1>
           <Form
             onSubmit={async e => {
               e.preventDefault();
               const res = await login({ variables: { email, password } });
-              console.log(res);
+
+              if (res.data && res.data.login) {
+                setRedirect(true);
+              }
             }}
           >
             <FormGroup>

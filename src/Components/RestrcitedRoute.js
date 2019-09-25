@@ -5,29 +5,30 @@ import { useQuery } from "@apollo/react-hooks";
 import { PROFILE } from "../graphql/profile";
 
 export const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const profile = useQuery(PROFILE);
+  const profile = useQuery(PROFILE, { errorPolicy: "all" });
   const { loading, data, error } = profile;
 
   if (loading) return "loading...";
 
   if (error) {
-    const AuthenticationRequiredError = error.graphQLErrors.find(
+    const authenticationRequiredError = error.graphQLErrors.find(
       ge => ge.extensions.exception.name === "AuthenticationRequiredError"
     );
 
-    if (AuthenticationRequiredError) {
+    if (authenticationRequiredError) {
       return (
         <Redirect
           to={{
             pathname: "/login",
             state: {
-              error: AuthenticationRequiredError.message,
+              error: authenticationRequiredError.message,
               from: rest.location
             }
           }}
         />
       );
     } else {
+      console.log("else block!");
       throw new Error(error);
     }
   }

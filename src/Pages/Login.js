@@ -12,6 +12,7 @@ export const Login = ({ location }) => {
   const [redirect, setRedirect] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [unconfirmedError, setUnconfirmedError] = useState("");
 
   const [login] = useMutation(LOGIN);
 
@@ -27,15 +28,38 @@ export const Login = ({ location }) => {
   }
   return (
     <Container>
-      {error && <Alert color="danger">{location.state.error}</Alert>}
+      {/* prettier-ignore */
+      error
+        ? <Alert color="danger">{location.state.error}</Alert>
+        : null}
+
       <h1 className="display-4">Login</h1>
+
+      {/* prettier-ignore */
+      unconfirmedError
+        ? <Alert color="warning">{unconfirmedError}</Alert>
+        : null}
+
       <Form
         onSubmit={async e => {
           e.preventDefault();
-          const res = await login({ variables: { email, password } });
 
-          if (res.data && res.data.login) {
-            setRedirect(true);
+          try {
+            const { data } = await login({
+              variables: { email, password }
+            });
+
+            if (data && data.login) {
+              setRedirect(true);
+            }
+          } catch (error) {
+            const unconfirmedUserError = error.graphQLErrors.find(
+              ge => ge.extensions.exception.name === "UnconfirmedUserError"
+            );
+            if (unconfirmedUserError) {
+              console.log(unconfirmedUserError.message);
+              setUnconfirmedError(unconfirmedUserError.message);
+            }
           }
         }}
       >

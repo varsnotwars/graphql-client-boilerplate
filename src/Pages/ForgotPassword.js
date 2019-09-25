@@ -18,6 +18,7 @@ export const ForgotPassword = () => {
   return (
     <Container>
       <h1 className="display-4">Forgot Password</h1>
+
       {/* prettier-ignore */
       submitted
         ? <Alert color="info">
@@ -25,6 +26,7 @@ export const ForgotPassword = () => {
             appear within a few minutes, check your spam folder.
             </Alert>
         : null}
+
       <Form
         onSubmit={async e => {
           e.preventDefault();

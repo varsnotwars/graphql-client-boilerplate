@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 
 import { Header } from "./Components/Header";
+import { AuthProvider } from "./Components/AuthProvider";
 
 const client = new ApolloClient({
   uri: "http://localhost:4000/graphql",
@@ -11,7 +12,9 @@ const client = new ApolloClient({
 
 const App = () => (
   <ApolloProvider client={client}>
-    <Header />
+    <AuthProvider>
+      <Header />
+    </AuthProvider>
   </ApolloProvider>
 );
 

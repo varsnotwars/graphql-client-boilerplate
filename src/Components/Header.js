@@ -15,6 +15,7 @@ import { Register } from "../Pages/Register";
 import { Profile } from "../Pages/Profile";
 import { RestrictedRoute } from "./RestrcitedRoute";
 import { ForgotPassword } from "../Pages/ForgotPassword";
+import { RestrictedComponent } from "./RestrictedComponent";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -41,11 +42,13 @@ export const Header = () => {
                   Register
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link className="nav-link" to="/profile">
-                  Profile
-                </Link>
-              </NavItem>
+              <RestrictedComponent>
+                <NavItem>
+                  <Link className="nav-link" to="/profile">
+                    Profile
+                  </Link>
+                </NavItem>
+              </RestrictedComponent>
             </Nav>
           </Collapse>
         </Navbar>

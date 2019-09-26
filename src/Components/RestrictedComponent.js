@@ -3,5 +3,5 @@ import { AuthContext } from "./AuthContext";
 
 export const RestrictedComponent = props => {
   const { profile } = useContext(AuthContext);
-  return profile ? props.children : null;
+  return profile ? <React.Fragment>{props.children}</React.Fragment> : null;
 };

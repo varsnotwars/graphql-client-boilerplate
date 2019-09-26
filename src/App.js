@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import ApolloClient from "apollo-boost";
 

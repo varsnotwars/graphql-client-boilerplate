@@ -13,6 +13,7 @@ export const Login = ({ location }) => {
   const [forgotPassword, setForgotPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [unconfirmedError, setUnconfirmedError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const [login] = useMutation(LOGIN);
 
@@ -40,6 +41,11 @@ export const Login = ({ location }) => {
         ? <Alert color="warning">{unconfirmedError}</Alert>
         : null}
 
+      {/* prettier-ignore */
+      loginError
+        ? <Alert color="danger">{loginError}</Alert>
+        : null}
+
       <Form
         onSubmit={async e => {
           e.preventDefault();
@@ -53,12 +59,15 @@ export const Login = ({ location }) => {
               setRedirect(true);
             }
           } catch (error) {
-            const unconfirmedUserError = error.graphQLErrors.find(
-              ge => ge.extensions.exception.name === "UnconfirmedUserError"
-            );
-            if (unconfirmedUserError) {
-              console.log(unconfirmedUserError.message);
-              setUnconfirmedError(unconfirmedUserError.message);
+            if (error.graphQLErrors) {
+              const unconfirmedUserError = error.graphQLErrors.find(
+                ge => ge.extensions.exception.name === "UnconfirmedUserError"
+              );
+              if (unconfirmedUserError) {
+                setUnconfirmedError(unconfirmedUserError.message);
+              } else {
+                setLoginError(error.graphQLErrors[0].message);
+              }
             }
           }
         }}
@@ -72,6 +81,7 @@ export const Login = ({ location }) => {
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
+
         <FormGroup>
           <Input
             type="password"
@@ -81,11 +91,13 @@ export const Login = ({ location }) => {
             onChange={e => setPassword(e.target.value)}
           />
         </FormGroup>
+
         <FormGroup>
           <Button size="lg" outline type="submit">
             Login
           </Button>
         </FormGroup>
+
         <FormGroup>
           <Button
             size="sm"

@@ -2,24 +2,31 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Redirect } from "react-router-dom";
 
-import { Button, Form, FormGroup, Input } from "reactstrap";
+import { Button, Form, FormGroup, Input, Alert } from "reactstrap";
 import { REGISTER } from "../graphql/register";
 import { Container } from "../Components/Container";
 
 export const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [registered, setRegistered] = useState(false);
+  const [error, setError] = useState("");
+  const [redirect, setRedirect] = useState(false);
 
   const [register] = useMutation(REGISTER);
 
-  if (registered) {
+  if (redirect) {
     return <Redirect to="/login" />;
   }
 
   return (
     <Container>
       <h1 className="display-4">Register</h1>
+
+      {/* prettier-ignore */
+      error
+        ? <Alert color="danger">{error}</Alert>
+        : null}
+
       <Form
         onSubmit={async e => {
           e.preventDefault();
@@ -30,10 +37,12 @@ export const Register = () => {
             });
 
             if (data.register) {
-              setRegistered(true);
+              setRedirect(true);
             }
           } catch (error) {
-            console.error(error);
+            if (error.graphQLErrors) {
+              setError(error.graphQLErrors[0].message);
+            }
           }
         }}
       >
@@ -46,6 +55,7 @@ export const Register = () => {
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
+
         <FormGroup>
           <Input
             type="password"
@@ -55,9 +65,22 @@ export const Register = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </FormGroup>
+
         <FormGroup>
           <Button size="lg" outline type="submit">
             Register
+          </Button>
+        </FormGroup>
+
+        <FormGroup>
+          <Button
+            size="sm"
+            color="link"
+            onClick={() => {
+              setRedirect(true);
+            }}
+          >
+            Already registered? Login here
           </Button>
         </FormGroup>
       </Form>

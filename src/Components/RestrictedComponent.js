@@ -3,5 +3,9 @@ import { AuthContext } from "./AuthContext";
 
 export const RestrictedComponent = props => {
   const { profile } = useContext(AuthContext);
-  return profile ? <React.Fragment>{props.children}</React.Fragment> : null;
+
+  // prettier-ignore
+  return profile
+    ? <React.Fragment>{props.children}</React.Fragment>
+    : null;
 };

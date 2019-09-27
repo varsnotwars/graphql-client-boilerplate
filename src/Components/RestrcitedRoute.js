@@ -28,7 +28,6 @@ export const RestrictedRoute = ({ component: Component, ...rest }) => {
         />
       );
     } else {
-      console.log("else block!");
       throw new Error(error);
     }
   }

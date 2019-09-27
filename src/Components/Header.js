@@ -13,7 +13,7 @@ import { Home } from "../Pages/Home";
 import { Login } from "../Pages/Login";
 import { Register } from "../Pages/Register";
 import { Profile } from "../Pages/Profile";
-import { RestrictedRoute } from "./RestrcitedRoute";
+import { RestrictedRoute } from "./RestrictedRoute";
 import { ForgotPassword } from "../Pages/ForgotPassword";
 import { RestrictedComponent } from "./RestrictedComponent";
 

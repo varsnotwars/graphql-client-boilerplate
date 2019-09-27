@@ -4,7 +4,7 @@ import renderer from "react-test-renderer";
 
 import { PROFILE } from "../src/graphql/profile";
 import { Profile } from "../src/Pages/Profile";
-import { RestrictedRoute } from "../src/Components/RestrcitedRoute";
+import { RestrictedRoute } from "../src/Components/RestrictedRoute";
 import { RestrictedComponent } from "../src/Components/RestrictedComponent";
 import { AuthProvider } from "../src/Components/AuthProvider";
 

@@ -27,6 +27,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "ci": "react-scripts test --coverage --coverageReporters=text-lcov | coveralls"
+    "ci": "react-scripts test -- --coverage --coverageReporters=text-lcov | coveralls"
   }
 }

@@ -2,11 +2,12 @@ language: node_js
 node_js: node
 cache:
   directories:
-  - node_modules
+    - node_modules
 install:
-- npm install
+  - npm install
 script:
-- npm run build
+  - npm run ci
+  - npm run build
 notifications:
   slack:
     secure: QMwa3MHYQkS04sXAzZuxz2q02fRB6nCBwO3es2Px3ICKUaX9PrFJAQ7SJ3McMm56fQUeAzSGs82Fd+aTaUFFHgCKEd55bA18jING/BhtakEPTTHASs8CTO3TmzHVDHM6BIkmsX6EvzGoWzOQKxTl6+u1bDgKokGgwWUEmYfi+HVwBMtlsg2jlFucvv4uFsRxosgK3DdgCf3evwASz+NJ26rUgFf1+LrkNuV9KWwUCzTwo64Lu9Lq5PCTo5j+EWyNp9jitsnLacL+tc7eBh0IIzAQNxjJ+vuA19CeC5VHDDxDaPzDAcleudaoPKX2FGm1DJf/+5eCzOn7u4vs/3YsGLY0BPM+EULgwDB3Ksah/tBPpCBoceR/UslAILARgy0lV9fkwi5X/d8cJ/T8lZr85uSNVPfiHDDdLInUys0Bzf5PCvgy3ISz8fB2+Thqrk7w5GbsizwS8qxkjMKawoUGy9WWSD0E2DFNboD6HXHT1+RzuhbYuPNT5hbbBjrf364taa4Ruj9tGuk/O+s/uaEQY+3KRDSr8bp6Ojz8xZq+q7KBi4IkadgYwzAkjukjEPSeEAaSGL/3g5O4wuvhq+cdanpgRpDJyyI7xmny5lGO7C6A6KPGEWIRGQRWYWL3jELhNrXb2YkD0fopdQt4i8L1hrvatz2P4Y0olPQd2iNUnFQ=

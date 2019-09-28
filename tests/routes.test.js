@@ -5,7 +5,6 @@ import renderer from "react-test-renderer";
 import { MockedProvider, wait } from "@apollo/react-testing";
 
 import { PROFILE } from "../src/graphql/profile";
-import { AuthProvider } from "../src/Components/AuthProvider";
 import { RestrictedRoute } from "../src/Components/RestrictedRoute";
 import { Profile } from "../src/Pages/Profile";
 

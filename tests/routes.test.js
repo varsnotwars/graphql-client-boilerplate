@@ -12,8 +12,9 @@ import { Profile } from "../src/Pages/Profile";
 import { GraphQLError } from "graphql";
 
 describe("routes:", () => {
-  it("redirects to login page", async () => {
+  it("unauthenticated profile redirects to login page", async () => {
     const history = createMemoryHistory({ initialEntries: ["/profile"] });
+    expect(history.location.pathname).toBe("/profile");
 
     const mocks = {
       request: {
@@ -21,7 +22,7 @@ describe("routes:", () => {
       },
       result: {
         errors: [
-          new GraphQLError("unauthed", null, null, null, null, null, {
+          new GraphQLError("_", null, null, null, null, null, {
             exception: { name: "AuthenticationRequiredError" }
           })
         ]
@@ -30,11 +31,9 @@ describe("routes:", () => {
 
     renderer.create(
       <MockedProvider mocks={[mocks]} addTypename={false}>
-        <AuthProvider>
-          <Router history={history}>
-            <RestrictedRoute exact path="/profile" component={Profile} />
-          </Router>
-        </AuthProvider>
+        <Router history={history}>
+          <RestrictedRoute exact path="/profile" component={Profile} />
+        </Router>
       </MockedProvider>
     );
 

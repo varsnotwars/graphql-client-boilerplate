@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, Children, cloneElement } from "react";
 import { AuthContext } from "./AuthContext";
 
 export const RestrictedComponent = props => {
@@ -6,6 +6,13 @@ export const RestrictedComponent = props => {
 
   // prettier-ignore
   return profile
-    ? <React.Fragment>{props.children}</React.Fragment>
+    ? <React.Fragment>
+        {
+          Children.map(
+            props.children,
+            child => cloneElement(child, { className: "restricted" })
+          )
+        }
+      </React.Fragment>
     : null;
 };

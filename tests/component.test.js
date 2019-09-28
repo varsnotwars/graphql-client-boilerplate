@@ -38,7 +38,7 @@ describe("components:", () => {
 
     return div;
   };
-  it("renders restricted profile for authenticated user", async () => {
+  it("renders restricted component for authenticated user", async () => {
     const profileResult = {
       data: { profile: { id: "1", email: "test@email.com" } }
     };

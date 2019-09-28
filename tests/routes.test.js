@@ -38,9 +38,11 @@ describe("routes:", () => {
       </MockedProvider>
     );
 
-    // delays until the next "tick" of the event loop,
-    // and allows time for that Promise returned from MockedProvider to be fulfilled
-    await wait();
+    await renderer.act(async () => {
+      // delays until the next "tick" of the event loop,
+      // and allows time for that Promise returned from MockedProvider to be fulfilled
+      await wait();
+    });
 
     expect(history.location.pathname).toBe("/login");
   });

@@ -14,7 +14,6 @@ export const RestrictedRoute = ({ component: Component, ...rest }) => {
     const authenticationRequiredError = error.graphQLErrors.find(
       ge => ge.extensions.exception.name === "AuthenticationRequiredError"
     );
-
     if (authenticationRequiredError) {
       return (
         <Redirect

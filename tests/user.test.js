@@ -8,7 +8,7 @@ import { RestrictedRoute } from "../src/Components/RestrictedRoute";
 import { RestrictedComponent } from "../src/Components/RestrictedComponent";
 import { AuthProvider } from "../src/Components/AuthProvider";
 
-describe("user", () => {
+describe("user:", () => {
   it("renders profile without error", () => {
     const mocks = {
       request: {

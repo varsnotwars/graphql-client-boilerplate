@@ -9,44 +9,41 @@ import { GraphQLError } from "graphql";
 import { act } from "react-dom/test-utils";
 import { LOGIN } from "../src/graphql/login";
 import { Login } from "../src/Pages/Login";
+import { FORGOT_PASSWORD } from "../src/graphql/forgotPassword";
+import { ForgotPassword } from "../src/Pages/ForgotPassword";
 
-describe("errors:", () => {
-  it("unconfirmed login catches and displays error", async () => {
-    const history = createMemoryHistory({ initialEntries: ["/login"] });
-    expect(history.location.pathname).toBe("/login");
+describe("info:", () => {
+  it("forgot password successfully displays response ", async () => {
+    const history = createMemoryHistory({
+      initialEntries: ["/forgot_password"]
+    });
+    expect(history.location.pathname).toBe("/forgot_password");
 
-    const unconfirmedError = "must confirm account";
+    const successMessage =
+      "Check your email for a link to reset your password. If it doesn’t appear within a few minutes, check your spam folder.";
 
     const mocks = {
       request: {
-        query: LOGIN,
+        query: FORGOT_PASSWORD,
         variables: {
-          email: "email@email.com",
-          password: "password"
+          email: "forgot@password.com"
         }
       },
       result: {
-        errors: [
-          new GraphQLError(unconfirmedError, null, null, null, null, null, {
-            exception: { name: "UnconfirmedUserError" }
-          })
-        ]
+        data: { forgotPassword: true }
       }
     };
 
     const { getByTestId, getByText } = render(
       <MockedProvider mocks={[mocks]} addTypename={false}>
         <Router history={history}>
-          <Login location={{ state: { from: "/", error: null } }} />
+          <ForgotPassword />
         </Router>
       </MockedProvider>
     );
 
     fireEvent.change(getByTestId("email"), {
-      target: { value: "email@email.com" }
-    });
-    fireEvent.change(getByTestId("password"), {
-      target: { value: "password" }
+      target: { value: "forgot@password.com" }
     });
 
     fireEvent.click(getByTestId("submit"));
@@ -55,8 +52,8 @@ describe("errors:", () => {
       await wait(0);
     });
 
-    expect(getByText(unconfirmedError)).toBeTruthy();
+    expect(getByText(successMessage)).toBeTruthy();
 
-    expect(history.location.pathname).toBe("/login");
+    expect(history.location.pathname).toBe("/forgot_password");
   });
 });

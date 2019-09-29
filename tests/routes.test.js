@@ -137,7 +137,7 @@ describe("routes:", () => {
       target: { value: "password" }
     });
 
-    fireEvent.click(getByTestId("login"));
+    fireEvent.click(getByTestId("submit"));
 
     await act(async () => {
       await wait(0);

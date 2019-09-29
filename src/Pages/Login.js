@@ -63,37 +63,44 @@ export const Login = ({ location }) => {
               const unconfirmedUserError = error.graphQLErrors.find(
                 ge => ge.extensions.exception.name === "UnconfirmedUserError"
               );
+
               if (unconfirmedUserError) {
                 setUnconfirmedError(unconfirmedUserError.message);
               } else {
                 setLoginError(error.graphQLErrors[0].message);
               }
+            } else {
+              throw error;
             }
           }
         }}
       >
         <FormGroup>
           <Input
+            data-testid="email"
             type="email"
             name="email"
             id="email"
             placeholder="email"
+            value={email}
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
 
         <FormGroup>
           <Input
+            data-testid="password"
             type="password"
             name="password"
             id="password"
             placeholder="password"
+            value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </FormGroup>
 
         <FormGroup>
-          <Button size="lg" outline type="submit">
+          <Button data-testid="login" size="lg" outline type="submit">
             Login
           </Button>
         </FormGroup>

@@ -6,6 +6,7 @@ import { MockedProvider, wait } from "@apollo/react-testing";
 import { render, fireEvent } from "@testing-library/react";
 
 import { PROFILE } from "../src/graphql/profile";
+import { Header } from "../src/Components/Header";
 import { RestrictedRoute } from "../src/Components/RestrictedRoute";
 import { Profile } from "../src/Pages/Profile";
 import { Register } from "../src/Pages/Register";
@@ -13,6 +14,9 @@ import { Register } from "../src/Pages/Register";
 import { GraphQLError } from "graphql";
 import { REGISTER } from "../src/graphql/register";
 import { act } from "react-dom/test-utils";
+import { LOGIN } from "../src/graphql/login";
+import { Login } from "../src/Pages/Login";
+import { AuthProvider } from "../src/Components/AuthProvider";
 
 describe("routes:", () => {
   it("unauthenticated profile redirects to login page", async () => {
@@ -94,5 +98,53 @@ describe("routes:", () => {
     });
 
     expect(history.location.pathname).toBe("/login");
+  });
+
+  it("successful login form redirects to profile", async () => {
+    const history = createMemoryHistory({ initialEntries: ["/login"] });
+    expect(history.location.pathname).toBe("/login");
+
+    const testEmail = "email@email.com";
+
+    const mocks = {
+      request: {
+        query: LOGIN,
+        variables: {
+          email: testEmail,
+          password: "password"
+        }
+      },
+      result: {
+        data: {
+          login: {
+            id: "2",
+            email: testEmail
+          }
+        }
+      }
+    };
+
+    const { getByTestId } = render(
+      <MockedProvider mocks={[mocks]} addTypename={false}>
+        <Router history={history}>
+          <Login location={{ from: "/", error: null }} />
+        </Router>
+      </MockedProvider>
+    );
+
+    fireEvent.change(getByTestId("email"), {
+      target: { value: testEmail }
+    });
+    fireEvent.change(getByTestId("password"), {
+      target: { value: "password" }
+    });
+
+    fireEvent.click(getByTestId("login"));
+
+    await act(async () => {
+      await wait(0);
+    });
+
+    expect(history.location.pathname).toBe("/profile");
   });
 });

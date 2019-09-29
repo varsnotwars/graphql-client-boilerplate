@@ -70,7 +70,7 @@ export const Register = () => {
         </FormGroup>
 
         <FormGroup>
-          <Button data-testid="submit" size="lg" outline type="submit">
+          <Button data-testid="register-submit" size="lg" outline type="submit">
             Register
           </Button>
         </FormGroup>

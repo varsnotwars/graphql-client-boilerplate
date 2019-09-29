@@ -100,7 +100,7 @@ export const Login = ({ location }) => {
         </FormGroup>
 
         <FormGroup>
-          <Button data-testid="submit" size="lg" outline type="submit">
+          <Button data-testid="login-submit" size="lg" outline type="submit">
             Login
           </Button>
         </FormGroup>

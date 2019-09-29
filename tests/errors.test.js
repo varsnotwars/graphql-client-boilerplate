@@ -49,7 +49,7 @@ describe("errors:", () => {
       target: { value: "password" }
     });
 
-    fireEvent.click(getByTestId("submit"));
+    fireEvent.click(getByTestId("login-submit"));
 
     await act(async () => {
       await wait(0);

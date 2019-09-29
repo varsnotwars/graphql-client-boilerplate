@@ -54,7 +54,7 @@ export const ForgotPassword = () => {
                     />
                 </FormGroup>
                 <FormGroup>
-                    <Button data-testid="submit" size="lg" outline type="submit">
+                    <Button data-testid="forgot-password-submit" size="lg" outline type="submit">
                         Send password reset email
                     </Button>
                 </FormGroup>

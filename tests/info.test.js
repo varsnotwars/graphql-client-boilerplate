@@ -1,14 +1,10 @@
 import React from "react";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
-
 import { MockedProvider, wait } from "@apollo/react-testing";
 import { render, fireEvent } from "@testing-library/react";
-
-import { GraphQLError } from "graphql";
 import { act } from "react-dom/test-utils";
-import { LOGIN } from "../src/graphql/login";
-import { Login } from "../src/Pages/Login";
+
 import { FORGOT_PASSWORD } from "../src/graphql/forgotPassword";
 import { ForgotPassword } from "../src/Pages/ForgotPassword";
 
@@ -46,7 +42,7 @@ describe("info:", () => {
       target: { value: "forgot@password.com" }
     });
 
-    fireEvent.click(getByTestId("submit"));
+    fireEvent.click(getByTestId("forgot-password-submit"));
 
     await act(async () => {
       await wait(0);

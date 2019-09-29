@@ -42,10 +42,10 @@ describe("errors:", () => {
       </MockedProvider>
     );
 
-    fireEvent.change(getByTestId("email"), {
+    fireEvent.change(getByTestId("login-email"), {
       target: { value: "email@email.com" }
     });
-    fireEvent.change(getByTestId("password"), {
+    fireEvent.change(getByTestId("login-password"), {
       target: { value: "password" }
     });
 

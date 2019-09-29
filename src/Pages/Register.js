@@ -47,7 +47,7 @@ export const Register = () => {
       >
         <FormGroup>
           <Input
-            data-testid="email"
+            data-testid="register-email"
             value={email}
             type="email"
             name="email"
@@ -59,7 +59,7 @@ export const Register = () => {
 
         <FormGroup>
           <Input
-            data-testid="password"
+            data-testid="register-password"
             value={password}
             type="password"
             name="password"

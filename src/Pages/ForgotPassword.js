@@ -44,12 +44,12 @@ export const ForgotPassword = () => {
             : <React.Fragment>
                 <FormGroup>
                     <Input
-                        data-testid="email"
+                        data-testid="forgot-password-email"
+                        value={email}
                         type="email"
                         name="email"
                         id="email"
                         placeholder="email"
-                        value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
                 </FormGroup>

@@ -38,7 +38,7 @@ describe("info:", () => {
       </MockedProvider>
     );
 
-    fireEvent.change(getByTestId("email"), {
+    fireEvent.change(getByTestId("forgot-password-email"), {
       target: { value: "forgot@password.com" }
     });
 

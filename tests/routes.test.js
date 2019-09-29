@@ -82,10 +82,10 @@ describe("routes:", () => {
       </MockedProvider>
     );
 
-    fireEvent.change(getByTestId("email"), {
+    fireEvent.change(getByTestId("register-email"), {
       target: { value: testEmail }
     });
-    fireEvent.change(getByTestId("password"), {
+    fireEvent.change(getByTestId("register-password"), {
       target: { value: "password" }
     });
 
@@ -130,10 +130,10 @@ describe("routes:", () => {
       </MockedProvider>
     );
 
-    fireEvent.change(getByTestId("email"), {
+    fireEvent.change(getByTestId("login-email"), {
       target: { value: testEmail }
     });
-    fireEvent.change(getByTestId("password"), {
+    fireEvent.change(getByTestId("login-password"), {
       target: { value: "password" }
     });
 

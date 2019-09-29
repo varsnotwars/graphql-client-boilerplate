@@ -77,24 +77,24 @@ export const Login = ({ location }) => {
       >
         <FormGroup>
           <Input
-            data-testid="email"
+            data-testid="login-email"
+            value={email}
             type="email"
             name="email"
             id="email"
             placeholder="email"
-            value={email}
             onChange={e => setEmail(e.target.value)}
           />
         </FormGroup>
 
         <FormGroup>
           <Input
-            data-testid="password"
+            data-testid="login-password"
+            value={password}
             type="password"
             name="password"
             id="password"
             placeholder="password"
-            value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </FormGroup>

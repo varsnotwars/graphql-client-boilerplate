@@ -6,7 +6,6 @@ import { MockedProvider, wait } from "@apollo/react-testing";
 import { render, fireEvent } from "@testing-library/react";
 
 import { PROFILE } from "../src/graphql/profile";
-import { Header } from "../src/Components/Header";
 import { RestrictedRoute } from "../src/Components/RestrictedRoute";
 import { Profile } from "../src/Pages/Profile";
 import { Register } from "../src/Pages/Register";
@@ -16,7 +15,6 @@ import { REGISTER } from "../src/graphql/register";
 import { act } from "react-dom/test-utils";
 import { LOGIN } from "../src/graphql/login";
 import { Login } from "../src/Pages/Login";
-import { AuthProvider } from "../src/Components/AuthProvider";
 
 describe("routes:", () => {
   it("unauthenticated profile redirects to login page", async () => {

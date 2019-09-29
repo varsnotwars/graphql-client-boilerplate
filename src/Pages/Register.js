@@ -30,7 +30,6 @@ export const Register = () => {
       <Form
         onSubmit={async e => {
           e.preventDefault();
-
           try {
             const { data } = await register({
               variables: { email, password }
@@ -48,6 +47,8 @@ export const Register = () => {
       >
         <FormGroup>
           <Input
+            data-testid="email"
+            value={email}
             type="email"
             name="email"
             id="email"
@@ -58,6 +59,8 @@ export const Register = () => {
 
         <FormGroup>
           <Input
+            data-testid="password"
+            value={password}
             type="password"
             name="password"
             id="password"
@@ -67,7 +70,7 @@ export const Register = () => {
         </FormGroup>
 
         <FormGroup>
-          <Button size="lg" outline type="submit">
+          <Button data-testid="submit" size="lg" outline type="submit">
             Register
           </Button>
         </FormGroup>

@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "react-apollo";
 import { PROFILE } from "../graphql/profile";
 
 export const RestrictedRoute = ({ component: Component, ...rest }) => {

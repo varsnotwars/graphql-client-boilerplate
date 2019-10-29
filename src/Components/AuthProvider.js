@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "react-apollo";
 
 import { PROFILE } from "../graphql/profile";
 import { AuthContext } from "./AuthContext";

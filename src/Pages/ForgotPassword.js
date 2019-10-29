@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "react-apollo";
 import { Button, Form, FormGroup, Input, Alert } from "reactstrap";
 import { Redirect } from "react-router-dom";
 

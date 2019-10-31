@@ -16,6 +16,7 @@ import { Profile } from "../Pages/Profile";
 import { RestrictedRoute } from "./RestrictedRoute";
 import { ForgotPassword } from "../Pages/ForgotPassword";
 import { RestrictedComponent } from "./RestrictedComponent";
+import { ConfirmAccount } from "../Pages/ConfirmAccount";
 
 export const Header = () => {
   const [open, setOpen] = useState(false);
@@ -58,6 +59,7 @@ export const Header = () => {
           <Route exact path="/register" component={Register} />
           <RestrictedRoute exact path="/profile" component={Profile} />
           <Route exact path="/forgot_password" component={ForgotPassword} />
+          <Route exact path="/confirm/:token" component={ConfirmAccount} />
         </Switch>
       </BrowserRouter>
     </div>

@@ -14,14 +14,14 @@ export const Login = ({ location }) => {
   const [password, setPassword] = useState("");
   const [unconfirmedError, setUnconfirmedError] = useState("");
   const [loginError, setLoginError] = useState("");
-
   const [login] = useMutation(LOGIN);
 
-  const { from, error } = location.state || {
+  const { from, error, message } = location.state || {
     from: {
       pathname: forgotPassword ? "/forgot_password" : "/profile"
     },
-    error: null
+    error: null,
+    message: null
   };
 
   if (redirect) {
@@ -44,6 +44,11 @@ export const Login = ({ location }) => {
       {/* prettier-ignore */
       loginError
         ? <Alert color="danger">{loginError}</Alert>
+        : null}
+
+      {/* prettier-ignore */
+      message
+        ? <Alert color="success">{message}</Alert>
         : null}
 
       <Form

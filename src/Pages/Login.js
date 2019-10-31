@@ -14,9 +14,8 @@ export const Login = ({ location }) => {
   const [password, setPassword] = useState("");
   const [unconfirmedError, setUnconfirmedError] = useState("");
   const [loginError, setLoginError] = useState("");
-
   const [login] = useMutation(LOGIN);
-  console.log("location.state", location.state);
+
   const { from, error, message } = location.state || {
     from: {
       pathname: forgotPassword ? "/forgot_password" : "/profile"

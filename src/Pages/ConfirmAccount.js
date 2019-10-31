@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "../Components/Container";
-
 import { useParams, Redirect } from "react-router-dom";
 import { useMutation } from "react-apollo";
-import { VERIFY_TOKEN } from "../graphql/verifyToken";
+import { Spinner } from "reactstrap";
+
+import { CONFIRM_ACCOUNT } from "../graphql/confirmAccount";
 
 export const ConfirmAccount = () => {
   const { token } = useParams();
-  const [verifyToken] = useMutation(VERIFY_TOKEN);
+  const [confirmAccount, { loading }] = useMutation(CONFIRM_ACCOUNT);
   const [redirect, setRedirect] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -15,9 +16,9 @@ export const ConfirmAccount = () => {
   useEffect(() => {
     const verify = async () => {
       try {
-        const valid = await verifyToken({ variables: { token } });
-        if (valid) {
-          setMessage("account confirmed");
+        const { data } = await confirmAccount({ variables: { token } });
+        if (data.confirmAccount) {
+          setMessage("account confirmed, please login");
         } else {
           setError("token not valid");
         }
@@ -45,8 +46,8 @@ export const ConfirmAccount = () => {
 
   return (
     <Container>
-      <h1 className="display-4">Confirm account</h1>
-      <h1>{token}</h1>
+      <h1 className="display-4">Confirming Account</h1>
+      {loading && <Spinner size="lg" type="grow" color="primary" />}
     </Container>
   );
 };

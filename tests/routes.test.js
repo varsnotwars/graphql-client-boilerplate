@@ -15,6 +15,8 @@ import { REGISTER } from "../src/graphql/register";
 import { act } from "react-dom/test-utils";
 import { LOGIN } from "../src/graphql/login";
 import { Login } from "../src/Pages/Login";
+import { ConfirmAccount } from "../src/Pages/ConfirmAccount";
+import { CONFIRM_ACCOUNT } from "../src/graphql/confirmAccount";
 
 describe("routes:", () => {
   it("unauthenticated profile redirects to login page", async () => {
@@ -50,6 +52,7 @@ describe("routes:", () => {
 
     expect(history.location.pathname).toBe("/login");
   });
+
   it("successful register form redirects to login", async () => {
     const history = createMemoryHistory({ initialEntries: ["/register"] });
     expect(history.location.pathname).toBe("/register");
@@ -144,5 +147,42 @@ describe("routes:", () => {
     });
 
     expect(history.location.pathname).toBe("/profile");
+  });
+
+  it("successful account confirmation redirects to login", async () => {
+    const validToken = "valid-token";
+
+    const history = createMemoryHistory({
+      initialEntries: [`/confirm/${validToken}`]
+    });
+    expect(history.location.pathname).toBe(`/confirm/${validToken}`);
+
+    const mocks = {
+      request: {
+        query: CONFIRM_ACCOUNT,
+        variables: {
+          token: validToken
+        }
+      },
+      result: {
+        data: {
+          confirmAccount: true
+        }
+      }
+    };
+
+    const res = render(
+      <MockedProvider mocks={[mocks]} addTypename={false}>
+        <Router history={history}>
+          <ConfirmAccount />
+        </Router>
+      </MockedProvider>
+    );
+
+    await act(async () => {
+      await wait(0);
+    });
+
+    expect(history.location.pathname).toBe("/login");
   });
 });

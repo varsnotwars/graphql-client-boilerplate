@@ -1,42 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Route, Redirect } from "react-router-dom";
-
-import { useQuery } from "react-apollo";
-import { PROFILE } from "../graphql/profile";
+import { AuthContext } from "./AuthContext";
 
 export const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const profile = useQuery(PROFILE, { errorPolicy: "all" });
-  const { loading, data, error } = profile;
+  const { profile } = useContext(AuthContext);
 
-  if (loading) return "loading...";
-
-  if (error) {
-    const authenticationRequiredError = error.graphQLErrors.find(
-      ge => ge.extensions.exception.name === "AuthenticationRequiredError"
+  if (!profile) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+          state: {
+            // TODO: need to sync error messages between client/server
+            error: "You must be logged in to do this",
+            from: rest.location
+          }
+        }}
+      />
     );
-    if (authenticationRequiredError) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: {
-              error: authenticationRequiredError.message,
-              from: rest.location
-            }
-          }}
-        />
-      );
-    } else {
-      throw new Error(error);
-    }
   }
 
   return (
     <Route
       {...rest}
-      render={routeProps => (
-        <Component {...routeProps} profile={data.profile} />
-      )}
+      render={routeProps => <Component {...routeProps} profile={profile} />}
     />
   );
 };

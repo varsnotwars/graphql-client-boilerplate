@@ -17,6 +17,7 @@ import { LOGIN } from "../src/graphql/login";
 import { Login } from "../src/Pages/Login";
 import { ConfirmAccount } from "../src/Pages/ConfirmAccount";
 import { CONFIRM_ACCOUNT } from "../src/graphql/confirmAccount";
+import { AuthProvider } from "../src/Components/AuthProvider";
 
 describe("routes:", () => {
   it("unauthenticated profile redirects to login page", async () => {
@@ -30,6 +31,7 @@ describe("routes:", () => {
       result: {
         errors: [
           new GraphQLError("_", null, null, null, null, null, {
+            // TODO: need to sync error messages between client/server
             exception: { name: "AuthenticationRequiredError" }
           })
         ]
@@ -38,9 +40,11 @@ describe("routes:", () => {
 
     renderer.create(
       <MockedProvider mocks={[mocks]} addTypename={false}>
-        <Router history={history}>
-          <RestrictedRoute exact path="/profile" component={Profile} />
-        </Router>
+        <AuthProvider>
+          <Router history={history}>
+            <RestrictedRoute exact path="/profile" component={Profile} />
+          </Router>
+        </AuthProvider>
       </MockedProvider>
     );
 

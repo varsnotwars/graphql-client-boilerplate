@@ -22,8 +22,7 @@ describe("components:", () => {
       <MockedProvider mocks={[mocks]} addTypename={false}>
         <AuthProvider>
           <RestrictedComponent>
-            {/* could add the "restricted" class to this element and remove logic from RestrictedComponent */}
-            <div>Restricted content</div>
+            <div className="restricted">Restricted content</div>
           </RestrictedComponent>
         </AuthProvider>
       </MockedProvider>,

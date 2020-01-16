@@ -18,8 +18,7 @@ import { ForgotPassword } from "../Pages/ForgotPassword";
 import { RestrictedComponent } from "./RestrictedComponent";
 import { ConfirmAccount } from "../Pages/ConfirmAccount";
 
-export const Header = props => {
-  console.log(props);
+export const Header = () => {
   const [open, setOpen] = useState(false);
   return (
     <div>

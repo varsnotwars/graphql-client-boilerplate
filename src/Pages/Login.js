@@ -6,12 +6,16 @@ import { Button, Form, FormGroup, Input, Alert } from "reactstrap";
 
 import { LOGIN } from "../graphql/login";
 import { Container } from "../Components/Container";
+import { useForm } from "../hooks/useForm";
 
 export const Login = ({ location }) => {
-  const [email, setEmail] = useState("");
+  const [{ email, password }, handleOnChange] = useForm({
+    email: "",
+    password: ""
+  });
+
   const [redirect, setRedirect] = useState(false);
   const [forgotPassword, setForgotPassword] = useState(false);
-  const [password, setPassword] = useState("");
   const [unconfirmedError, setUnconfirmedError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [login] = useMutation(LOGIN);
@@ -27,6 +31,7 @@ export const Login = ({ location }) => {
   if (redirect) {
     return <Redirect to={from} />;
   }
+
   return (
     <Container>
       {/* prettier-ignore */
@@ -88,7 +93,7 @@ export const Login = ({ location }) => {
             name="email"
             id="email"
             placeholder="email"
-            onChange={e => setEmail(e.target.value)}
+            onChange={handleOnChange}
           />
         </FormGroup>
 
@@ -100,7 +105,7 @@ export const Login = ({ location }) => {
             name="password"
             id="password"
             placeholder="password"
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleOnChange}
           />
         </FormGroup>
 
